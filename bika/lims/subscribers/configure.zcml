@@ -66,6 +66,13 @@
       handler="bika.lims.subscribers.samplinground.SamplingRoundAddedEventHandler"
       />
 
+  <!-- Client: Object created -->
+  <subscriber
+      for="bika.lims.interfaces.IClient
+           Products.Archetypes.interfaces.IObjectInitializedEvent"
+      handler="bika.lims.subscribers.client.ObjectInitializedEventHandler"
+      />
+
   <!-- Pricelists -->
   <subscriber
       for="bika.lims.interfaces.IPricelist
