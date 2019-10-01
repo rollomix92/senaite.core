@@ -49,7 +49,7 @@
       <permission-role>LabClerk</permission-role>
       <permission-role>LabManager</permission-role>
       <permission-role>Manager</permission-role>
-      <permission-role>Owner</permission-role>
+      <permission-role>Client</permission-role>
     </permission-map>
   </state>
 
@@ -73,7 +73,7 @@
       <permission-role>LabClerk</permission-role>
       <permission-role>LabManager</permission-role>
       <permission-role>Manager</permission-role>
-      <permission-role>Owner</permission-role>
+      <permission-role>Client</permission-role>
     </permission-map>
   </state>
 
