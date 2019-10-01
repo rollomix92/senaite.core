@@ -241,11 +241,12 @@ class Contact(Person):
         # somehow the `getUsername` index gets out of sync
         self.reindexObject()
 
-        # N.B. Local owner role and client group applies only to client
-        #      contacts, but not lab contacts.
         if IClient.providedBy(self.aq_parent):
-            # Grant local Owner role
-            self._addLocalOwnerRole(username)
+            # Apply the client-specific role for this user
+            role = self.aq_parent.get_client_role()
+            roles = user.getRoles() + [role]
+            user.setSecurityProfile(roles=roles)
+
             # Add user to "Clients" group
             self._addUserToGroup(username, group="Clients")
 
@@ -279,11 +280,12 @@ class Contact(Person):
         # somehow the `getUsername` index gets out of sync
         self.reindexObject()
 
-        # N.B. Local owner role and client group applies only to client
-        #      contacts, but not lab contacts.
         if IClient.providedBy(self.aq_parent):
-            # Revoke local Owner role
-            self._delLocalOwnerRole(username)
+            # Revoke the client-specific role for this user
+            role = self.aq_parent.get_client_role()
+            roles = filter(lambda urole: urole != role, user.getRoles())
+            user.setSecurityProfile(roles=roles)
+
             # Remove user from "Clients" group
             self._delUserFromGroup(username, group="Clients")
 
@@ -304,36 +306,5 @@ class Contact(Person):
         portal_groups = api.portal.get_tool("portal_groups")
         group = portal_groups.getGroupById(group)
         group.removeMember(username)
-
-    @security.private
-    def _addLocalOwnerRole(self, username):
-        """Add local owner role from parent object
-        """
-        parent = self.getParent()
-        if parent.portal_type == "Client":
-            parent.manage_setLocalRoles(username, ["Owner", ])
-            # reindex object security
-            self._recursive_reindex_object_security(parent)
-
-    @security.private
-    def _delLocalOwnerRole(self, username):
-        """Remove local owner role from parent object
-        """
-        parent = self.getParent()
-        if parent.portal_type == "Client":
-            parent.manage_delLocalRoles([username])
-            # reindex object security
-            self._recursive_reindex_object_security(parent)
-
-    def _recursive_reindex_object_security(self, obj):
-        """Reindex object security after user linking
-        """
-        if hasattr(aq_base(obj), "objectValues"):
-            for child_obj in obj.objectValues():
-                self._recursive_reindex_object_security(child_obj)
-
-        logger.debug("Reindexing object security for {}".format(repr(obj)))
-        obj.reindexObjectSecurity()
-
 
 atapi.registerType(Contact, PROJECTNAME)

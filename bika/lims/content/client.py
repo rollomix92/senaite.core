@@ -288,11 +288,16 @@ class Client(Organisation):
                     "Do not have permissions to remove this object")
         return PortalFolder.manage_delObjects(self, ids, REQUEST=REQUEST)
 
+    def get_client_role(self):
+        """Returns the id of this client-specific role
+        """
+        return api.get_id(self)
+
     def init_client_role(self):
         """Grants permissions for this object to its client-specific role.
         Creates the client-specific role if it does not exist yet
         """
-        role = api.get_id(self)
+        role = self.get_client_role()
         portal = api.get_portal()
 
         # Create the new cient-specific role if it does not exist yet
