@@ -18,7 +18,7 @@
 # Copyright 2018-2019 by it's authors.
 # Some rights reserved, see README and LICENSE.
 from Products.CMFCore.permissions import AccessContentsInformation, View, \
-    ListFolderContents, ModifyPortalContent
+    ListFolderContents, ModifyPortalContent, AddPortalContent
 
 from bika.lims import api
 from bika.lims.api import security
@@ -34,10 +34,13 @@ def ObjectInitializedEventHandler(client, event):
     portal = api.get_portal()
     portal._addRole(role)
 
-    # We manually apply the basic permissions for this client. Contacts from
-    # this client will have the role Client too, but role Client does not have
-    # these "basic" permissions set to prevent them to access to all Clients.
+    # Contacts from this client will have the role Client too, but the following
+    # permissions are revoked for "Client" role in senaite_client_workflow, so
+    # client contacts won't have access to clients objects by default.
+    # Thus, we manually grant these permissions for this client-specific role
+    # so only users with this role will be able to access to this client.
     permissions = [
+        AddPortalContent,
         AccessContentsInformation,
         ListFolderContents,
         ManageAnalysisRequests,
@@ -45,6 +48,6 @@ def ObjectInitializedEventHandler(client, event):
         View
     ]
     for perm in permissions:
-        security.grant_permission_for(client, perm, role)
+        security.grant_permission_for(client, perm, role, acquire=1)
 
     client.reindexObjectSecurity()

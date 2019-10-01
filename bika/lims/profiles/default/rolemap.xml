@@ -155,6 +155,7 @@
       <role name="Owner"/>
     </permission>
     <permission name="senaite.core: Add AnalysisRequest" acquire="False">
+      <role name="Client"/>
       <role name="LabClerk"/>
       <role name="LabManager"/>
       <role name="Manager"/>
