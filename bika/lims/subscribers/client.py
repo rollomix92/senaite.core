@@ -22,6 +22,7 @@ from Products.CMFCore.permissions import AccessContentsInformation, View, \
 
 from bika.lims import api
 from bika.lims.api import security
+from bika.lims.permissions import ManageAnalysisRequests
 
 
 def ObjectInitializedEventHandler(client, event):
@@ -39,8 +40,11 @@ def ObjectInitializedEventHandler(client, event):
     permissions = [
         AccessContentsInformation,
         ListFolderContents,
+        ManageAnalysisRequests,
         ModifyPortalContent,
         View
     ]
     for perm in permissions:
         security.grant_permission_for(client, perm, role)
+
+    client.reindexObjectSecurity()
