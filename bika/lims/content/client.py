@@ -35,16 +35,22 @@ from Products.Archetypes.public import registerType
 from Products.Archetypes.utils import DisplayList
 from Products.CMFCore import permissions
 from Products.CMFCore.PortalFolder import PortalFolderBase as PortalFolder
+from Products.CMFCore.permissions import AccessContentsInformation, View, \
+    ListFolderContents, ModifyPortalContent, AddPortalContent
 from Products.CMFCore.utils import _checkPermission
+from zope.interface import implements
+
 from bika.lims import _
 from bika.lims import api
+from bika.lims.api import security
 from bika.lims.config import ARIMPORT_OPTIONS
 from bika.lims.config import DECIMAL_MARKS
 from bika.lims.config import PROJECTNAME
 from bika.lims.content.attachment import Attachment
 from bika.lims.content.organisation import Organisation
 from bika.lims.interfaces import IClient, IDeactivable
-from zope.interface import implements
+from bika.lims.permissions import ManageAnalysisRequests
+
 
 schema = Organisation.schema.copy() + Schema((
     StringField(
@@ -281,6 +287,47 @@ class Client(Organisation):
                 raise Unauthorized, (
                     "Do not have permissions to remove this object")
         return PortalFolder.manage_delObjects(self, ids, REQUEST=REQUEST)
+
+    def init_client_role(self):
+        """Grants permissions for this object to its client-specific role.
+        Creates the client-specific role if it does not exist yet
+        """
+        role = api.get_id(self)
+        portal = api.get_portal()
+
+        # Create the new cient-specific role if it does not exist yet
+        if role not in portal.userdefined_roles():
+            portal._addRole(role)
+
+        # Contacts from this client will have the role Client too, but the
+        # following permissions are revoked for "Client" role in
+        # senaite_client_workflow, so client contacts won't have access to
+        # clients objects by default.
+        # Thus, we manually grant these permissions for this client-specific
+        # role, so only users with this role will be able to access to this
+        # client.
+        # IMPORTANT: permissions for this client-specific role will be lost if
+        #    you do an updateRoleMappings for this client later. In such case,
+        #    you'll need to manually set these permissions manually or run
+        #    this init_client_role function thereafter.
+        permissions = [
+            AddPortalContent,
+            AccessContentsInformation,
+            ListFolderContents,
+            ManageAnalysisRequests,
+            ModifyPortalContent,
+            View
+        ]
+        # Get the inherited permissions to know for which we need to acquire
+        inherited = self.ac_inherited_permissions(all=False)
+        inherited = map(lambda perm: perm[0], inherited)
+        for perm in permissions:
+            acquire = perm in inherited
+            security.grant_permission_for(self, perm, role, acquire=acquire)
+
+        # Make sure the changes take effect. Note reindexObjectSecurity reindex
+        # security settings recursively to client's children
+        self.reindexObjectSecurity()
 
 
 schemata.finalizeATCTSchema(schema, folderish=True, moveDiscussion=False)
