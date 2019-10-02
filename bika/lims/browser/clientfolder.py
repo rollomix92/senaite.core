@@ -147,16 +147,6 @@ class ClientFolderContentsView(BikaListingView):
         self.show_select_column = check_permission(ModifyPortalContent,
                                                    self.context)
 
-    def isItemAllowed(self, obj):
-        """Returns true if the current user has Manage AR rights for the
-        current Client (item) to be rendered.
-
-        :param obj: client to be rendered as a row in the list
-        :type obj: ATContentType/DexterityContentType
-        :return: True if the current user can see this Client. Otherwise, False.
-        :rtype: bool
-        """
-        return check_permission(ManageAnalysisRequests, obj)
 
     def folderitem(self, obj, item, index):
         """Applies new properties to the item (Client) that is currently being
