@@ -21,18 +21,17 @@
 import collections
 import json
 
-from Products.CMFCore.permissions import ModifyPortalContent
+from plone import protect
+from plone.app.content.browser.interfaces import IFolderContentsView
+from zope.interface import implements
+
 from bika.lims import api, logger
 from bika.lims import bikaMessageFactory as _
 from bika.lims.browser import BrowserView
 from bika.lims.browser.bika_listing import BikaListingView
 from bika.lims.permissions import AddClient
-from bika.lims.permissions import ManageAnalysisRequests
 from bika.lims.utils import (check_permission, get_email_link, get_link,
                              get_registry_value)
-from plone import protect
-from plone.app.content.browser.interfaces import IFolderContentsView
-from zope.interface import implements
 
 
 class ClientFolderContentsView(BikaListingView):
@@ -60,10 +59,9 @@ class ClientFolderContentsView(BikaListingView):
             "sort_order": "ascending"
         }
 
-
         self.show_select_row = False
         self.show_select_all_checkbox = False
-        self.show_select_column = False
+        self.show_select_column = True
         self.pagesize = 25
         self.icon = "{}/{}".format(
             self.portal_url, "++resource++bika.lims.images/client_big.png")
@@ -141,11 +139,6 @@ class ClientFolderContentsView(BikaListingView):
                 "url": "createObject?type_name=Client",
                 "icon": "++resource++bika.lims.images/add.png"
             }
-
-        # Display a checkbox next to each client in the list if the user has
-        # rights for ModifyPortalContent
-        self.show_select_column = check_permission(ModifyPortalContent,
-                                                   self.context)
 
 
     def folderitem(self, obj, item, index):
