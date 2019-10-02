@@ -21,6 +21,7 @@
 import collections
 import json
 
+from Products.CMFCore.permissions import ModifyPortalContent
 from plone import protect
 from plone.app.content.browser.interfaces import IFolderContentsView
 from zope.interface import implements
@@ -58,10 +59,11 @@ class ClientFolderContentsView(BikaListingView):
             "sort_on": "sortable_title",
             "sort_order": "ascending"
         }
+        self.context_actions = {}
 
         self.show_select_row = False
         self.show_select_all_checkbox = False
-        self.show_select_column = True
+        self.show_select_column = False
         self.pagesize = 25
         self.icon = "{}/{}".format(
             self.portal_url, "++resource++bika.lims.images/client_big.png")
@@ -139,6 +141,13 @@ class ClientFolderContentsView(BikaListingView):
                 "url": "createObject?type_name=Client",
                 "icon": "++resource++bika.lims.images/add.png"
             }
+
+        # Do not display checkboxes if user cannot modify portal content. We
+        # assume that if user cannot Add clients or Modify Portal content, she
+        # won't be able to transition items inside neither (kind-of a shortcut
+        # to not display checkbox for Client users)
+        self.show_select_column = check_permission(ModifyPortalContent,
+                                                   self.context)
 
 
     def folderitem(self, obj, item, index):
