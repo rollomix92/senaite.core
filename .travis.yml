@@ -38,6 +38,6 @@ before_install:
   # - bin/pip install --upgrade pip setuptools zc.buildout
   - bin/pip install -r requirements.txt
 install:
-  - bin/buildout -n -t 3 -c travis.cfg
+  - buildout -n -t 3 -c travis.cfg
 script:
   - bin/test -m bika.lims
