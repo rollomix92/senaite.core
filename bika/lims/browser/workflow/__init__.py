@@ -30,7 +30,7 @@ from bika.lims.interfaces import IWorkflowActionAdapter, \
 from bika.lims.workflow import ActionHandlerPool
 from bika.lims.workflow import doActionFor as do_action_for
 from zope.component import queryMultiAdapter
-from zope.component.interfaces import implements
+from zope.interface import implements
 
 
 class RequestContextAware(object):
