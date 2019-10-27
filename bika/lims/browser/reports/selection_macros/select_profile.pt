@@ -6,8 +6,7 @@
 
     <select name="ProfileUID:ignore_empty"
             style=""
-            id="ProfileUID"
-            tal:attributes="style string:font-family:${here/base_properties/fontFamily};;font-size:100%;">
+            id="ProfileUID">
 
         <option value=""/>
 

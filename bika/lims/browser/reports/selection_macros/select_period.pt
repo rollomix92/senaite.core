@@ -7,8 +7,7 @@
 
     <select name="Period:ignore_empty"
             style=""
-            id="Period"
-            tal:attributes="style string:font-family:${here/base_properties/fontFamily};;font-size:100%;">
+            id="Period">
 
         <tal:periods
                 tal:repeat="period periods">

@@ -5,8 +5,7 @@
     <br/>
 
     <select name="User"
-            id="User"
-            tal:attributes="style string:font-family:${here/base_properties/fontFamily};;font-size:100%;">
+            id="User">
 
         <tal:analysts tal:repeat="user users">
             <option

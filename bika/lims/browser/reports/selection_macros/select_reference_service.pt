@@ -6,8 +6,7 @@
     <br/>
 
     <select name="ReferenceServiceUID:ignore_empty"
-            id="ReferenceServiceUID"
-            tal:attributes="style string:font-family:${here/base_properties/fontFamily};;font-size:100%;">
+            id="ReferenceServiceUID">
 
         <option value=""></option>
 

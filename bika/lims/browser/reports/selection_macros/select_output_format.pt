@@ -5,8 +5,7 @@
 
     <select name="output_format:ignore_empty"
             style=""
-            id="output_format"
-            tal:attributes="style string:font-family:${here/base_properties/fontFamily};;font-size:100%;">
+            id="output_format">
 
         <option
                 tal:attributes="

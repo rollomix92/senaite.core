@@ -4,8 +4,7 @@
     <br/>
 
     <select name="SamplePointUID:ignore_empty"
-            id="SamplePointUID"
-            tal:attributes="style string:font-family:${here/base_properties/fontFamily};;font-size:100%;">
+            id="SamplePointUID">
 
         <option tal:condition="python:view.allow_blank" value=""/>
 

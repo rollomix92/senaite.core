@@ -5,8 +5,7 @@
     <br/>
 
     <select name="Analyst:ignore_empty"
-            id="Analyst"
-            tal:attributes="style string:font-family:${here/base_properties/fontFamily};;font-size:100%;">
+            id="Analyst">
 
         <option value=""/>
         <tal:analysts tal:repeat="analyst analysts">
