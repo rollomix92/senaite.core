@@ -217,6 +217,6 @@
     color: black!important;
 }
 .ui-icon {
-    background-image: url(++resource++bika.lims.css/images/ui-icons_72a7cf_256x240.png)!important;
+    background-image: url("++resource++bika.lims.css/images/ui-icons_72a7cf_256x240.png")!important;
 }
 
