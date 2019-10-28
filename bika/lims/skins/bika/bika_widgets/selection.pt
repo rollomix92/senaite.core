@@ -3,7 +3,6 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="plone">
-/home/campbell/Plone/zeocluster/parts/omelette/Products/Archetypes/skins/archetypes/widgets/selection.pt
 <head>
     <title></title>
 </head>
