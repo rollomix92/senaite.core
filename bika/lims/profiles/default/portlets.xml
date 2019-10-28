@@ -24,7 +24,7 @@
     name="navigation"
     category="context"
     key="/"
-    manager="plone.left"
+    manager="plone.leftcolumn"
     type="portlets.Navigation"
     visible="True">
     <property name="topLevel">0</property>
