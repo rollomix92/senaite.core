@@ -122,12 +122,6 @@
       layer="bika.lims.interfaces.IBikaLIMS"
       permission="zope2.View" />
 
-  <browser:viewlet
-      name="bika.lims.authenticator"
-      manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
-      class="bika.lims.browser.viewlets.authenticator.AuthenticatorViewlet"
-      permission="zope2.View" />
-
   <!-- Show Instrument QC failures viewlet -->
   <browser:viewlet
       for="*"
