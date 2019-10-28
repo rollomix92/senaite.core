@@ -7,7 +7,7 @@
     name="navigation"
     category="context"
     key="/"
-    manager="plone.leftcolumn"
+    manager="plone.rightcolumn"
     type="portlets.Navigation"
     visible="True">
     <property name="topLevel">0</property>
