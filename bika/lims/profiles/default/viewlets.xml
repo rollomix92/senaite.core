@@ -4,13 +4,13 @@
   <!-- Hidden vielets in plone.portalheader -->
   <hidden manager="plone.portalheader" skinname="*" purge="True">
     <viewlet name="plone.searchbox"/>
-    <viewlet name="plone.logo"/>
+    <viewlet name="plone.personal_bar"/>
   </hidden>
 
   <!-- Order vielets in plone.portalheader -->
   <order manager="plone.portalheader" skinname="*" purge="True">
+    <viewlet name="plone.logo"/>
     <viewlet name="plone.skip_links"/>
-    <viewlet name="plone.personal_bar"/>
     <viewlet name="senaite.setupbutton"/>
     <viewlet name="senaite.sections_dropdown"/>
     <viewlet name="plone.app.i18n.locales.languageselector"/>
