@@ -8,47 +8,20 @@
     xmlns:monkey="http://namespaces.plone.org/monkey"
     i18n_domain="senaite.core">
 
+  <!-- Mask analyses with those from descendants (partitioning) -->
+  <monkey:patch
+      description=""
+      class="Products.ZCatalog.ZCatalog.ZCatalog"
+      original="searchResults"
+      replacement=".zcatalog.searchResults"
+      />
+
+  <!-- Translate the pretty title or ID -->
   <monkey:patch
       description="Fix pretty_title_or_id so that messages are translated.  It accepts a domain parameter, which defaults to 'plone'"
       module="Products.CMFPlone.utils"
       original="pretty_title_or_id"
       replacement="bika.lims.monkey.utils.pretty_title_or_id"
       />
-
-  <monkey:patch
-      description=""
-      class="Products.CMFCore.MembershipTool.MembershipTool"
-      original="getAuthenticatedMember"
-      replacement="bika.lims.monkey.member.getAuthenticatedMember"
-      />
-
-  <monkey:patch
-      description="Modify isVisible to include more specific widget visibility rules"
-      class="Products.Archetypes.Schema.Schemata"
-      original="editableFields"
-      replacement=".Widget.editableFields"
-      />
-
-  <monkey:patch
-      description="Modify isVisible to include more specific widget visibility rules"
-      class="Products.Archetypes.Widget.TypesWidget"
-      original="isVisible"
-      replacement=".Widget.isVisible"
-      />
-
-    <monkey:patch
-      description="Allow field default value acquisition with IAcquireFieldDefaults"
-      class="Products.Archetypes.Schema.BasicSchema"
-      original="setDefaults"
-      replacement=".Schema.setDefaults"
-      />
-
-  <!-- Mask analyses with those from descendants (partitioning) -->
-  <monkey:patch
-    description=""
-    class="Products.ZCatalog.ZCatalog.ZCatalog"
-    original="searchResults"
-    replacement=".zcatalog.searchResults"
-  />
 
 </configure>
