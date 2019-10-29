@@ -20,12 +20,12 @@
       layer="bika.lims.interfaces.IBikaLIMS" />
 
   <!-- Sections Dropdown -->
-  <browser:viewlet
-      name="senaite.sections_dropdown"
-      manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
-      class=".sections_dropdown.SectionsDropdownViewlet"
-      permission="zope2.View"
-      layer="bika.lims.interfaces.IBikaLIMS" />
+  <!-- <browser:viewlet -->
+  <!--     name="senaite.sections_dropdown" -->
+  <!--     manager="plone.app.layout.viewlets.interfaces.IPortalHeader" -->
+  <!--     class=".sections_dropdown.SectionsDropdownViewlet" -->
+  <!--     permission="zope2.View" -->
+  <!--     layer="bika.lims.interfaces.IBikaLIMS" /> -->
 
   <!-- Site Actions -->
   <browser:viewlet

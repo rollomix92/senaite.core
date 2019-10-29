@@ -21,7 +21,7 @@ class LogoViewlet(ViewletBase):
         logo = portal.restrictedTraverse(logoName, None)
         if logo:
             self.logo_tag = logo.tag(
-                title=logoTitle, alt=logoTitle, scale=0.5, css_class="logo")
+                title=logoTitle, alt=logoTitle, scale=0.25, css_class="logo")
         else:
             self.logo_tag = ""
         self.navigation_root_title = self.portal_state.navigation_root_title()
