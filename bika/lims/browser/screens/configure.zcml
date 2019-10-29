@@ -40,4 +40,8 @@
       file="senaite-icon.png"
       name="senaite-icon.png"/>
 
+  <browser:resource
+      file="bootstrap.min.css"
+      name="bootstrap.min.css"/>
+
 </configure>
