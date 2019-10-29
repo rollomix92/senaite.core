@@ -24,4 +24,18 @@
       replacement="bika.lims.monkey.utils.pretty_title_or_id"
       />
 
+  <monkey:patch
+      description="Modify isVisible to include more specific widget visibility rules"
+      class="Products.Archetypes.Schema.Schemata"
+      original="editableFields"
+      replacement=".Widget.editableFields"
+      />
+
+  <monkey:patch
+      description="Modify isVisible to include more specific widget visibility rules"
+      class="Products.Archetypes.Widget.TypesWidget"
+      original="isVisible"
+      replacement=".Widget.isVisible"
+      />
+
 </configure>
