@@ -15,6 +15,11 @@
     <viewlet name="plone.app.i18n.locales.languageselector"/>
   </order>
 
+  <!-- Hidden vielets in plone.toobar -->
+  <hidden manager="plone.toolbar" skinname="*" purge="True">
+    <viewlet name="plone.contentviews"/>
+  </hidden>
+
   <!-- Hidden vielets in plone.mainnavigation -->
   <hidden manager="plone.mainnavigation" skinname="*" purge="True">
     <viewlet name="plone.global_sections"/>
