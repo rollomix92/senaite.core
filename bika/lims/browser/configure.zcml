@@ -48,6 +48,7 @@
   <include package=".reports"/>
   <include package=".resultsimport"/>
   <include package=".samplinground"/>
+  <include package=".screens"/>
   <include package=".srtemplate"/>
   <include package=".viewlets"/>
   <include package=".widgets"/>

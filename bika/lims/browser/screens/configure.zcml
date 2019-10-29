@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    i18n_domain="senaite.core">
+
+  <!-- ZOPE root overview screen -->
+  <browser:page
+      for="OFS.interfaces.IApplication"
+      name="senaite-overview"
+      class="Products.CMFPlone.browser.admin.Overview"
+      permission="zope.Public"
+      template="overview.pt"/>
+
+</configure>
