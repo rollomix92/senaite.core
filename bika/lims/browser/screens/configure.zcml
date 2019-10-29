@@ -13,4 +13,18 @@
       permission="zope.Public"
       template="overview.pt"/>
 
+  <!-- SENAITE install screen -->
+  <browser:page
+      for="OFS.interfaces.IApplication"
+      name="senaite-addsite"
+      class="Products.CMFPlone.browser.admin.AddPloneSite"
+      permission="zope2.ViewManagementScreens"
+      template="addsite.pt"/>
+
+  <!-- App traverser to show the overview screen -->
+  <adapter
+      for="OFS.interfaces.IApplication
+           zope.publisher.interfaces.browser.IBrowserRequest"
+      factory=".adapters.SenaiteAppTraverser"/>
+
 </configure>
