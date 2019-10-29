@@ -27,4 +27,17 @@
            zope.publisher.interfaces.browser.IBrowserRequest"
       factory=".adapters.SenaiteAppTraverser"/>
 
+  <!-- Register file resources -->
+  <browser:resource
+      file="senaite-logo.png"
+      name="senaite-logo.png"/>
+
+  <browser:resource
+      file="senaite-favicon.ico"
+      name="senaite-favicon.ico"/>
+
+  <browser:resource
+      file="bootstrap/vendor/css/bootstrap.min.css"
+      name="bootstrap.min.css"/>
+
 </configure>

@@ -15,7 +15,7 @@
         tal:attributes="href string:${context/absolute_url}/++resource++bootstrap.min.css"
         href="bootstrap.min.css" />
   <link href="favicon.ico" rel="icon" type="image/x-icon"
-        tal:attributes="href string:${context/absolute_url}/++resource++favicon.ico"/>
+        tal:attributes="href string:${context/absolute_url}/++resource++senaite-favicon.ico"/>
 </head>
 <body>
 
@@ -27,7 +27,7 @@
           <img src="senaite-logo.png"
                width="250"
                tal:attributes="src string:${context/absolute_url}/++resource++senaite-logo.png" />
-          <small class="lead">Open Source LIMS Project</small>
+          <small class="lead">Open Source Laboratory System</small>
         </h1>
         <hr/>
 
