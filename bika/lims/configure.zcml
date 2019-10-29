@@ -26,7 +26,7 @@
   <include package=".interfaces" />
   <include package=".jsonapi" />
   <include package=".locales" />
-  <!-- <include package=".monkey" /> -->
+  <include package=".monkey" />
   <include package=".subscribers" />
   <include package=".vocabularies" />
   <include package=".workflow" />
