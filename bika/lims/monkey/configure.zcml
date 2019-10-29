@@ -9,13 +9,6 @@
     i18n_domain="senaite.core">
 
   <monkey:patch
-      description="This adds the bika.lims category to controlpanel-overview."
-      class="plone.app.controlpanel.overview.OverviewControlPanel"
-      original="categories"
-      replacement="bika.lims.monkey.controlpanel.overview_controlpanel_categories"
-      />
-
-  <monkey:patch
       description="Fix pretty_title_or_id so that messages are translated.  It accepts a domain parameter, which defaults to 'plone'"
       module="Products.CMFPlone.utils"
       original="pretty_title_or_id"
