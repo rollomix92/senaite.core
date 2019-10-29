@@ -21,37 +21,35 @@
 from bika.lims.catalog.analysis_catalog import CATALOG_ANALYSIS_LISTING
 
 
-def searchResults(self, REQUEST=None, used=None, **kw):
+def searchResults(self, query=None, **kw):
     """Search the catalog
 
-    Search terms can be passed in the REQUEST or as keyword
-    arguments.
-
-    The used argument is now deprecated and ignored
+    Search terms can be passed as a query or as keyword arguments.
     """
-    if REQUEST and REQUEST.get('getRequestUID') \
+
+    if query and query.get("getRequestUID") \
             and self.id == CATALOG_ANALYSIS_LISTING:
 
-        # Fetch all analyses that have the request UID passed in as an ancestor,
-        # cause we want Primary ARs to always display the analyses from their
-        # derived ARs (if result is not empty)
+        # Fetch all analyses that have the request UID passed in as an
+        # ancestor, cause we want Primary ARs to always display the analyses
+        # from their derived ARs (if result is not empty)
 
-        request = REQUEST.copy()
-        orig_uid = request.get('getRequestUID')
+        _query = query.copy()
+        orig_uid = _query.get("getRequestUID")
 
-        # If a list of request uid, retrieve them sequentially to make the
+        # If a list of _query uid, retrieve them sequentially to make the
         # masking process easier
         if isinstance(orig_uid, list):
             results = list()
             for uid in orig_uid:
-                request['getRequestUID'] = [uid]
-                results += self.searchResults(REQUEST=request, used=used, **kw)
+                _query["getRequestUID"] = [uid]
+                results += self.searchResults(query=_query, **kw)
             return results
 
         # Get all analyses, those from descendant ARs included
-        del request['getRequestUID']
-        request['getAncestorsUIDs'] = orig_uid
-        results = self.searchResults(REQUEST=request, used=used, **kw)
+        del _query["getRequestUID"]
+        _query["getAncestorsUIDs"] = orig_uid
+        results = self.searchResults(query=_query, **kw)
 
         # Masking
         primary = filter(lambda an: an.getParentUID == orig_uid, results)
@@ -61,4 +59,4 @@ def searchResults(self, REQUEST=None, used=None, **kw):
         return results + derived
 
     # Normal search
-    return self._catalog.searchResults(REQUEST, used, **kw)
+    return self._catalog.searchResults(query, **kw)
