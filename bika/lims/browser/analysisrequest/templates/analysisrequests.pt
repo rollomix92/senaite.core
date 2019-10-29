@@ -21,7 +21,10 @@
         <span tal:content="python:view.context.translate(view.title)"/>
           <span tal:condition="python:checkPermission('senaite.core: Add AnalysisRequest', context)"
                 style="padding-left:0.5em;display:inline-block;">
-          <form method="GET" class="form-inline" action="ar_add">
+          <form method="GET"
+                class="form-inline"
+                action="ar_add"
+                tal:attributes="action string:${context/absolute_url}/ar_add">
             <input type="number"
                    name="ar_count"
                    min="1"
