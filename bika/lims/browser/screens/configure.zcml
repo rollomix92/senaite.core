@@ -36,4 +36,12 @@
       file="senaite-favicon.ico"
       name="senaite-favicon.ico"/>
 
+  <browser:resource
+      file="senaite-icon.png"
+      name="senaite-icon.png"/>
+
+  <browser:resource
+      file="bootstrap.min.css"
+      name="bootstrap.min.css"/>
+
 </configure>
