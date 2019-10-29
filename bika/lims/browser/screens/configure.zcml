@@ -37,7 +37,7 @@
       name="senaite-favicon.ico"/>
 
   <browser:resource
-      file="bootstrap/vendor/css/bootstrap.min.css"
+      file="bootstrap.min.css"
       name="bootstrap.min.css"/>
 
 </configure>

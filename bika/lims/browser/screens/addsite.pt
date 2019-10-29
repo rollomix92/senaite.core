@@ -69,6 +69,22 @@
                   The main language of the site.
                 </div>
 
+                <select name="default_language"
+                        class="form-control"
+                        tal:define="browser_language view/browser_language;
+                              grouped_languages python:view.grouped_languages(browser_language)">
+                  <optgroup tal:repeat="group grouped_languages" tal:attributes="label group/label">
+                    <option value="en"
+                            tal:repeat="lang group/languages"
+                            tal:attributes="value python:lang['langcode'];
+                                            selected python:lang['langcode'] == browser_language"
+                            tal:content="python: lang['label']">
+                      English
+                    </option>
+
+                  </optgroup>
+                </select>
+
               </div>
 
               <tal:extensionprofiles condition="extension_profiles">
@@ -84,7 +100,7 @@
                     <tal:hidden tal:condition="python: selected and not advanced">
                       <input type="hidden" name="extension_ids:list" value=""
                              tal:attributes="value info/id;
-                                   checked info/selected|nothing;" />
+                                             checked info/selected|nothing;" />
                     </tal:hidden>
                   </tal:info>
                 </tal:addons>
@@ -93,7 +109,7 @@
               <div>
                 <input type="hidden" name="extension_ids:list" value="senaite.lims:default" />
                 <input type="hidden" name="form.submitted:boolean" value="True" />
-                <input  class="btn btn-primary btn-xl" type="submit" name="submit" value="Install SENAITE LIMS"
+                <input  class="btn btn-primary" type="submit" name="submit" value="Install"
                         i18n:attributes="value;" />
               </div>
 
