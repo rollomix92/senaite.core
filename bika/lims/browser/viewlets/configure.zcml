@@ -35,6 +35,14 @@
       permission="zope2.View"
       layer="bika.lims.interfaces.IBikaLIMS" />
 
+  <!-- Content views (tabs) -->
+  <browser:viewlet
+      name="plone.contentviews"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+      class=".contentviews.ContentViewsViewlet"
+      permission="zope2.View"
+      layer="bika.lims.interfaces.IBikaLIMS" />
+
   <!-- AR Attachments Viewlet -->
   <browser:viewlet
       for="bika.lims.interfaces.IAnalysisRequest"
