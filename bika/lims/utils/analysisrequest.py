@@ -57,6 +57,18 @@ from bika.lims.workflow import push_reindex_to_actions_pool
 from bika.lims.workflow.analysisrequest import AR_WORKFLOW_ID
 from bika.lims.workflow.analysisrequest import do_action_to_analyses
 
+try:
+    import senaite.queue
+    senaite.queue  # noqa
+except ImportError:
+    USE_QUEUE = False
+else:
+    USE_QUEUE = True
+
+if USE_QUEUE:
+    from senaite.queue.api import is_queue_enabled
+    from senaite.queue.queue import queue_set_analyses
+
 
 def create_analysisrequest(client, request, values, analyses=None,
                            results_ranges=None, prices=None):
@@ -86,13 +98,23 @@ def create_analysisrequest(client, request, values, analyses=None,
     ar = _createObjectByType('AnalysisRequest', client, tmpID())
     ar.processForm(REQUEST=request, values=values)
 
-    # Set the analyses manually
-    ar.setAnalyses(service_uids, prices=prices, specs=results_ranges)
+    primary = ar.getPrimaryAnalysisRequest()
+    if not primary:
+        # Can we queue?
+        if USE_QUEUE and is_queue_enabled():
 
-    # Handle hidden analyses from template and profiles
-    # https://github.com/senaite/senaite.core/issues/1437
-    # https://github.com/senaite/senaite.core/issues/1326
-    apply_hidden_services(ar)
+            # Queue the assignment of analyses
+            queue_set_analyses(ar, request, service_uids, prices=prices,
+                               ranges=results_ranges)
+
+        else:
+            # Set the analyses manually
+            ar.setAnalyses(service_uids, prices=prices, specs=results_ranges)
+
+            # Handle hidden analyses from template and profiles
+            # https://github.com/senaite/senaite.core/issues/1437
+            # https://github.com/senaite/senaite.core/issues/1326
+            apply_hidden_services(ar)
 
     # Handle rejection reasons
     rejection_reasons = resolve_rejection_reasons(values)
